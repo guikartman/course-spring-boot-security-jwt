@@ -8,12 +8,16 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.guikartman.domain.enums.StatusPedido;
 
 @Entity
 public class Pedido implements Serializable {
@@ -32,18 +36,30 @@ public class Pedido implements Serializable {
 	@Column(name = "total", precision = 20, scale = 2)
 	private BigDecimal total;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status")
+	private StatusPedido status;
+	
 	@OneToMany(mappedBy = "pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
 	public Pedido() {
 	}
 	
-	public Pedido(Integer id, Cliente cliente ,LocalDate dataPedido, BigDecimal total) {
+	public Pedido(Integer id, Cliente cliente ,LocalDate dataPedido, BigDecimal total, StatusPedido status) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
 		this.dataPedido = dataPedido;
 		this.total = total;
+		this.status = status;
+	}
+	
+	public Pedido(Integer id, Cliente cliente ,LocalDate dataPedido) {
+		super();
+		this.id = id;
+		this.cliente = cliente;
+		this.dataPedido = dataPedido;
 	}
 
 	public Integer getId() {
@@ -76,6 +92,14 @@ public class Pedido implements Serializable {
 	
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+	
+	public StatusPedido getStatus() {
+		return status;
+	}
+	
+	public void setStatus(StatusPedido status) {
+		this.status = status;
 	}
 	
 	public Set<ItemPedido> getItens() {

@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,7 +24,11 @@ public class Cliente implements Serializable {
 	@Column(name = "nome", length = 100)
 	private String nome;
 	
+	@Column(name = "cpf", length = 11)
+	private String cpf;
+	
 	@OneToMany(mappedBy = "cliente")
+	@JsonIgnore
 	private Set<Pedido> pedidos = new HashSet<>();
 	
 	public Cliente() {
@@ -48,6 +54,14 @@ public class Cliente implements Serializable {
 	
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public String getCpf() {
+		return cpf;
+	}
+	
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	
 	public Set<Pedido> getPedidos() {
