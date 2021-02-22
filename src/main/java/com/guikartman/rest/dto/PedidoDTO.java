@@ -4,11 +4,20 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import com.guikartman.validation.NotEmptyList;
+
 public class PedidoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@NotNull(message = "{campo.codigo-cliente.obrigatorio}")
 	private Integer cliente;
+	
+	@NotNull(message = "{campo.total-pedido.obrigatorio}")
 	private BigDecimal total;
+	
+	@NotEmptyList(message = "Pedido não pode ser realizado sem itens.")
 	private List<ItemPedidoDTO> items;
 	
 	public PedidoDTO(Integer cliente, BigDecimal total, List<ItemPedidoDTO> items) {
