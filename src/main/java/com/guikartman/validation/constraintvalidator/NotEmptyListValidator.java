@@ -13,10 +13,5 @@ public class NotEmptyListValidator implements ConstraintValidator<NotEmptyList, 
 	public boolean isValid(List list, ConstraintValidatorContext context) {
 		return list != null && !list.isEmpty();
 	}
-
-	@Override
-	public void initialize(NotEmptyList constraintAnnotation) {
-		
-	}
 	
 }
